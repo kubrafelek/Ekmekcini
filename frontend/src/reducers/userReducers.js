@@ -91,7 +91,6 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
     }
 }
 
-
 export const userUpdateProfileReducer = (state = {}, action) => {
     switch (action.type) {
         case USER_UPDATE_PROFILE_REQUEST:
@@ -110,7 +109,6 @@ export const userUpdateProfileReducer = (state = {}, action) => {
             return state
     }
 }
-
 
 export const userListReducer = (state = { users: [] }, action) => {
     switch (action.type) {
@@ -131,7 +129,6 @@ export const userListReducer = (state = { users: [] }, action) => {
     }
 }
 
-
 export const userDeleteReducer = (state = {}, action) => {
     switch (action.type) {
         case USER_DELETE_REQUEST:
@@ -147,7 +144,6 @@ export const userDeleteReducer = (state = {}, action) => {
             return state
     }
 }
-
 
 export const userUpdateReducer = (state = { user: {} }, action) => {
     switch (action.type) {

@@ -20,7 +20,7 @@ function Header() {
             <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
                 <Container>
                     <LinkContainer to='/'>
-                        <Navbar.Brand>Demo App</Navbar.Brand>
+                        <Navbar.Brand>EKMEKCİNİ</Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
