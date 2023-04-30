@@ -8,20 +8,17 @@ import { addToCart, removeFromCart } from '../actions/cartActions'
 function CartScreen() {
     const params = useParams()
     const navigate = useNavigate()
-    const { search } = useLocation()
-    //    const searchParams = useSearchParams() ->useSearchParams } from 'react-router-dom'
-    const productId = params.id
-
-    //    console.log('cartItems', Number(search.split("=")[1]));
-
-    const quantity = search ? Number(search.split("=")[1]) : 1;
-
     const dispatch = useDispatch()
+    const { search } = useLocation()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const productId = params.id
+    const quantity = search ? Number(search.split("=")[1]) : 1;
 
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
-
-    console.log('cartItems', cartItems);
 
     useEffect(() => {
         if (productId) {
@@ -30,12 +27,15 @@ function CartScreen() {
     }, [dispatch, productId, quantity])
 
     const removeFromCartHandler = (id) => {
-        //console.log('remove:', id)
         dispatch(removeFromCart(id))
     }
 
     const checkoutHandler = () => {
-        navigate('/login?redirect=shipping')
+        if (userInfo) {
+            navigate('/shipping')
+        } else {
+            navigate('/login?redirect=shipping')
+        }
     }
 
     return (

@@ -10,6 +10,10 @@ import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ShippingScreen from './screens/ShippingScreen'
+import PaymentScreen from './screens/PaymentScreen'
+import PlaceOrderScreen from './screens/PlaceOrderScreen'
+import OrderScreen from './screens/OrderScreen'
 
 function App() {
   return (
@@ -21,7 +25,11 @@ function App() {
             <Route path='/' element={<HomeScreen />} exact />
             <Route path='/login' element={<LoginScreen />} exact />
             <Route path='/register' element={<RegisterScreen />} exact />
-            <Route path='/profile' element={<ProductScreen />} />
+            <Route path='/profile' element={<ProfileScreen />} />
+            <Route path='/shipping' element={<ShippingScreen />} />
+            <Route path='/placeorder' element={<PlaceOrderScreen />} />
+            <Route path='/order/:id' element={<OrderScreen />} />
+            <Route path='/payment' element={<PaymentScreen />} />
             <Route path='/products/:id' element={<ProductScreen />} />
             <Route path='/cart/:id?' element={<CartScreen />} />
           </Routes>

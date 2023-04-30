@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Form, Button, Row, Col, Table } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -18,6 +17,7 @@ function ProfileScreen({ history }) {
     const [message, setMessage] = useState('')
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const userDetails = useSelector(state => state.userDetails)
     const { error, loading, user } = userDetails
@@ -34,7 +34,7 @@ function ProfileScreen({ history }) {
 
     useEffect(() => {
         if (!userInfo) {
-            history.push('/login')
+            navigate('/login')
         } else {
             if (!user || !user.name || success || userInfo._id !== user._id) {
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
@@ -50,7 +50,7 @@ function ProfileScreen({ history }) {
     const submitHandler = (e) => {
         e.preventDefault()
 
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             setMessage('Passwords do not match')
         } else {
             dispatch(updateUserProfile({
@@ -59,7 +59,6 @@ function ProfileScreen({ history }) {
                 'email': email,
                 'password': password
             }))
-            setMessage('')
         }
 
     }
@@ -141,9 +140,8 @@ function ProfileScreen({ history }) {
                                 <th>ID</th>
                                 <th>Date</th>
                                 <th>Total</th>
-                                <th>Paid</th>
+                                <th>Paid Status</th>
                                 <th>Delivered</th>
-                                <th></th>
                             </tr>
                         </thead>
 
@@ -152,15 +150,15 @@ function ProfileScreen({ history }) {
                                 <tr key={order._id}>
                                     <td>{order._id}</td>
                                     <td>{order.createdAt.substring(0, 10)}</td>
-                                    <td>${order.totalPrice}</td>
-                                    <td>{order.isPaid ? order.paidAt.substring(0, 10) : (
-                                        <i className='fas fa-times' style={{ color: 'red' }}></i>
+                                    <td>{order.totalPrice} TL</td>
+                                    <td>{(
+                                        <i className='fas fa-check' style={{ color: 'green' }}></i>
                                     )}</td>
                                     <td>
-                                        <LinkContainer to={`/order/${order._id}`}>
-                                            <Button className='btn-sm'>Details</Button>
-                                        </LinkContainer>
-                                    </td>
+
+                                        {(
+                                            <i className='fas fa-bus' style={{ color: 'orange' }}></i>
+                                        )}</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -9,6 +10,7 @@ import { listOrders } from '../actions/orderActions'
 function OrderListScreen({ history }) {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const orderList = useSelector(state => state.orderList)
     const { loading, error, orders } = orderList
@@ -16,17 +18,14 @@ function OrderListScreen({ history }) {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-
-
     useEffect(() => {
         if (userInfo && userInfo.isAdmin) {
             dispatch(listOrders())
         } else {
-            history.push('/login')
+            navigate('/login')
         }
 
     }, [dispatch, history, userInfo])
-
 
     return (
         <div>

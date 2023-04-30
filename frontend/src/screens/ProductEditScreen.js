@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
@@ -24,6 +24,7 @@ function ProductEditScreen({ match, history }) {
     const [uploading, setUploading] = useState(false)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const productDetails = useSelector(state => state.productDetails)
     const { error, loading, product } = productDetails
@@ -36,7 +37,7 @@ function ProductEditScreen({ match, history }) {
 
         if (successUpdate) {
             dispatch({ type: PRODUCT_UPDATE_RESET })
-            history.push('/admin/productlist')
+            navigate('/admin/productlist')
         } else {
             if (!product.name || product._id !== Number(productId)) {
                 dispatch(listProductDetails(productId))
@@ -51,9 +52,6 @@ function ProductEditScreen({ match, history }) {
 
             }
         }
-
-
-
     }, [dispatch, product, productId, history, successUpdate])
 
     const submitHandler = (e) => {
@@ -88,7 +86,6 @@ function ProductEditScreen({ match, history }) {
 
             const { data } = await axios.post('/api/products/upload/', formData, config)
 
-
             setImage(data)
             setUploading(false)
 
@@ -99,7 +96,7 @@ function ProductEditScreen({ match, history }) {
 
     return (
         <div>
-            <Link to='/admin/productlist'>
+            <Link to='/admin/productlist' className='btn-btn-secondary'>
                 Go Back
             </Link>
 

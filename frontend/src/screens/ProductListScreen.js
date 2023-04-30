@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import Paginate from '../components/Paginate'
 import { listProducts, deleteProduct, createProduct } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 function ProductListScreen({ history, match }) {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const productList = useSelector(state => state.productList)
-    const { loading, error, products, pages, page } = productList
+    const { loading, error, products } = productList
 
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
@@ -30,11 +31,11 @@ function ProductListScreen({ history, match }) {
         dispatch({ type: PRODUCT_CREATE_RESET })
 
         if (!userInfo.isAdmin) {
-            history.push('/login')
+            navigate('/login')
         }
 
         if (successCreate) {
-            history.push(`/admin/product/${createdProduct._id}/edit`)
+            navigate(`/admin/product/${createdProduct._id}/edit`)
         } else {
             dispatch(listProducts(keyword))
         }
@@ -116,7 +117,6 @@ function ProductListScreen({ history, match }) {
                                     ))}
                                 </tbody>
                             </Table>
-                            <Paginate pages={pages} page={page} isAdmin={true} />
                         </div>
                     )}
         </div>

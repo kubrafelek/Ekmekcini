@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
@@ -17,6 +17,7 @@ function UserEditScreen({ match, history }) {
     const [isAdmin, setIsAdmin] = useState(false)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const userDetails = useSelector(state => state.userDetails)
     const { error, loading, user } = userDetails
@@ -28,7 +29,7 @@ function UserEditScreen({ match, history }) {
 
         if (successUpdate) {
             dispatch({ type: USER_UPDATE_RESET })
-            history.push('/admin/userlist')
+            navigate('/admin/userlist')
         } else {
 
             if (!user.name || user._id !== Number(userId)) {

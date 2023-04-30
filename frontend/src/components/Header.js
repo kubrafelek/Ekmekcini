@@ -28,7 +28,7 @@ function Header() {
                             <LinkContainer to='/cart'>
                                 <Nav.Link>
                                     <i className="fas fa-shopping-basket"></i> &nbsp;
-                                    Cart</Nav.Link>
+                                    Basket</Nav.Link>
                             </LinkContainer>
 
                             {userInfo ? (
@@ -41,7 +41,7 @@ function Header() {
                                 </NavDropdown>
                             ) : (
                                 <LinkContainer to='/login'>
-                                    <Nav.Link><i className="fas fa-user"></i>Login</Nav.Link>
+                                    <Nav.Link><i className="fas fa-user"></i>&nbsp; Login</Nav.Link>
                                 </LinkContainer>
                             )}
 

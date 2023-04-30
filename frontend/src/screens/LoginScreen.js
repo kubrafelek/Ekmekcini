@@ -1,5 +1,5 @@
-import React, { userState, useEffect, useState } from 'react'
-import { Link, redirect, useLocation, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
@@ -7,7 +7,7 @@ import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
 import { login } from '../actions/userActions'
 
-function LoginScreen({ location, history }) {
+function LoginScreen({ history }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
@@ -19,17 +19,17 @@ function LoginScreen({ location, history }) {
     const userLogin = useSelector(state => state.userLogin)
     const { error, loading, userInfo } = userLogin
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        dispatch(login(email, password))
-        //console.log('Submmitted...')
-    }
-
     useEffect(() => {
         if (userInfo) {
             navigate(redirect)
         }
     }, [history, userInfo, redirect])
+
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+        dispatch(login(email, password))
+    }
 
     return (
         <FormContainer>
