@@ -14,16 +14,14 @@
 ## Tools & Technologies ☕
 
      - Django Python - React
-     - Spring Data JPA / Hibernate
      - Database: SQLite
 
 ## Installation 🔧
 
     - Firstly, clone repository
 
-    ```
-    git clone https://github.com/kubrafelek/ekmekcini.git
-    ```
+    git clone: https://github.com/kubrafelek/ekmekcini.git
+
 
     - cd ekmekcini
     - Create virtual environment: virtualenv myenv
