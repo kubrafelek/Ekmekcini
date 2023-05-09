@@ -6,7 +6,7 @@ import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { savePaymentMethod } from '../actions/cartActions'
 
-function PaymentScreen({ history }) {
+function PaymentScreen() {
 
     const cart = useSelector(state => state.cart)
     const { shippingAddress } = cart
@@ -14,7 +14,7 @@ function PaymentScreen({ history }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [paymentMethod, setPaymentMethod] = useState('Cash')
+    const [paymentMethod, setPaymentMethod] = useState('Paypal')
 
     if (!shippingAddress.address) {
         navigate('/shipping')
@@ -45,7 +45,7 @@ function PaymentScreen({ history }) {
                         </Form.Check>
                         <Form.Check
                             type='radio'
-                            label='Online Payment'
+                            label='Paypal or Credit Card'
                             id='cash'
                             name='paymentMethod'
                             onChange={(e) => setPaymentMethod(e.target.value)}

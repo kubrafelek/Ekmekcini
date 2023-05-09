@@ -76,8 +76,9 @@ def getMyOrders(request):
 def getOrderById(request, pk):
 
     user = request.user
-
+    print('Page:', request.data)
     try:
+        print('Page:', order)
         order = Order.objects.get(_id=pk)
         if user.is_staff or order.user == user:
             serializer = OrderSerializer(order, many=False)
