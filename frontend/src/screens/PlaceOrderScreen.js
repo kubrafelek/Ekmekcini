@@ -143,6 +143,10 @@ function PlaceOrderScreen({ history }) {
                             </ListGroup.Item>
 
                             <ListGroup.Item>
+                                {success && <Message variant='primary'>{success}</Message>}
+                            </ListGroup.Item>
+
+                            <ListGroup.Item>
                                 <Button
                                     type='button'
                                     className='btn-block'
