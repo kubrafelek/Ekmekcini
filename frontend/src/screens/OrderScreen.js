@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { PayPalButton } from 'react-paypal-button-v2'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails } from '../actions/orderActions'
+import { getOrderDetails, payOrder } from '../actions/orderActions'
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants'
 
 function OrderScreen({ match, history }) {
@@ -31,6 +32,17 @@ function OrderScreen({ match, history }) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
     }
 
+    const addPayPalScript = () => {
+        const script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.src = ''
+        script.async = true
+
+        script.onload = () => {
+            sdkReady(true)
+        }
+        document.body.appendChild(script)
+    }
 
     useEffect(() => {
         if (!userInfo) {
@@ -43,13 +55,17 @@ function OrderScreen({ match, history }) {
 
             dispatch(getOrderDetails(orderId))
         } else if (!order.isPaid) {
+            if (!window.paypal) {
+                addPayPalScript()
+            } else {
+
+            }
             setSdkReady(true)
         }
     }, [dispatch, order, orderId, successPay, successDeliver])
 
-
     const successPaymentHandler = (paymentResult) => {
-        dispatch(orderId, paymentResult)
+        dispatch(payOrder(orderId, paymentResult))
     }
 
     const deliverHandler = () => {
@@ -174,7 +190,7 @@ function OrderScreen({ match, history }) {
                                     {!sdkReady ? (
                                         <Loader />
                                     ) : (
-                                        <Button
+                                        <PayPalButton
                                             amount={order.totalPrice}
                                             onSuccess={successPaymentHandler}
                                         />

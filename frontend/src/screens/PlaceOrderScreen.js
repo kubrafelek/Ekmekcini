@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
+import { PayPalButton } from 'react-paypal-button-v2'
 
 function PlaceOrderScreen({ history }) {
 
@@ -147,14 +148,14 @@ function PlaceOrderScreen({ history }) {
                             </ListGroup.Item>
 
                             <ListGroup.Item>
-                                <Button
+                                <PayPalButton
                                     type='button'
                                     className='btn-block'
                                     disabled={cart.cartItems === 0}
                                     onClick={placeOrder}
                                 >
                                     Place Order
-                                </Button>
+                                </PayPalButton>
                             </ListGroup.Item>
 
                         </ListGroup>
